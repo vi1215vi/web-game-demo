@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>井字棋游戏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>井字棋游戏</h1>
+        
+        <div class="controls">
+            <div class="mode-selector">
+                <label>游戏模式：</label>
+                <select id="mode">
+                    <option value="ai">人机对战</option>
+                    <option value="pvp">双人对战</option>
+                    <option value="online">联机对战</option>
+                </select>
+            </div>
+            <button id="reset" class="btn">重新开始</button>
+        </div>
+        
+        <div id="online-controls" class="online-controls" style="display: none;">
+            <div class="room-info">
+                <span id="room-id-display">房间号: -</span>
+                <span id="player-symbol-display">你的符号: -</span>
+            </div>
+            <div class="online-buttons">
+                <button id="create-room" class="btn">创建房间</button>
+                <button id="join-room-btn" class="btn">加入房间</button>
+                <input type="text" id="room-code-input" placeholder="输入房间号">
+            </div>
+            <div id="online-status" class="status"></div>
+        </div>
+        
+        <div class="game-info">
+            <div class="player-info">
+                <span class="player-x">玩家 X</span>
+                <span id="current-player" class="current">当前回合</span>
+                <span class="player-o">玩家 O</span>
+            </div>
+            <div id="status" class="status"></div>
+        </div>
+        
+        <div class="board" id="board">
+            <div class="cell" data-row="0" data-col="0"></div>
+            <div class="cell" data-row="0" data-col="1"></div>
+            <div class="cell" data-row="0" data-col="2"></div>
+            <div class="cell" data-row="1" data-col="0"></div>
+            <div class="cell" data-row="1" data-col="1"></div>
+            <div class="cell" data-row="1" data-col="2"></div>
+            <div class="cell" data-row="2" data-col="0"></div>
+            <div class="cell" data-row="2" data-col="1"></div>
+            <div class="cell" data-row="2" data-col="2"></div>
+        </div>
+        
+        <div class="instructions">
+            <h3>操作说明：</h3>
+            <ul>
+                <li>鼠标点击格子进行落子</li>
+                <li>键盘方向键选择格子，回车键确认落子</li>
+                <li>R键重新开始游戏</li>
+                <li>M键切换游戏模式</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>
