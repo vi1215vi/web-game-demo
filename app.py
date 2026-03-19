@@ -183,10 +183,6 @@ player_rooms = {}
 def index():
     return render_template('index.html')
 
-@app.route('/gomoku')
-def gomoku():
-    return render_template('gomoku.html')
-
 @app.route('/api/move', methods=['POST'])
 def make_move():
     data = request.json
