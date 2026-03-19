@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>棋类游戏大厅</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3em;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 20px;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .game-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .game-description {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .game-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .feature-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .play-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .play-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        .tictactoe-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .tictactoe-icon .cell {
+            background: #667eea;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .gomoku-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            background: #dcb35c;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .gomoku-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(#8b6914 1px, transparent 1px),
+                linear-gradient(90deg, #8b6914 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+        }
+
+        .gomoku-icon .stone {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .gomoku-icon .stone.black {
+            background: radial-gradient(circle at 30% 30%, #666, #000);
+        }
+
+        .gomoku-icon .stone.white {
+            background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 棋类游戏大厅</h1>
+            <p class="subtitle">选择你喜欢的游戏，开始挑战吧！</p>
+        </header>
+
+        <div class="games-grid">
+            <div class="game-card" onclick="window.location.href='/tictactoe'">
+                <div class="tictactoe-icon">
+                    <div class="cell">X</div>
+                    <div class="cell">O</div>
+                    <div class="cell">X</div>
+                    <div class="cell">O</div>
+                    <div class="cell">X</div>
+                    <div class="cell">O</div>
+                    <div class="cell">X</div>
+                    <div class="cell">O</div>
+                    <div class="cell">X</div>
+                </div>
+                <h2 class="game-title">井字棋</h2>
+                <p class="game-description">
+                    经典简单的三子连线游戏，快速对战，轻松上手！
+                    支持人机对战、双人对战和在线联机模式。
+                </p>
+                <div class="game-features">
+                    <span class="feature-tag">🤖 人机对战</span>
+                    <span class="feature-tag">👥 双人对战</span>
+                    <span class="feature-tag">🌐 在线联机</span>
+                </div>
+                <button class="play-button">开始游戏</button>
+            </div>
+
+            <div class="game-card" onclick="window.location.href='/gomoku'">
+                <div class="gomoku-icon">
+                    <div class="stone black" style="top: 10px; left: 10px;"></div>
+                    <div class="stone white" style="top: 10px; left: 30px;"></div>
+                    <div class="stone black" style="top: 30px; left: 30px;"></div>
+                    <div class="stone white" style="top: 30px; left: 50px;"></div>
+                    <div class="stone black" style="top: 50px; left: 50px;"></div>
+                    <div class="stone white" style="top: 50px; left: 10px;"></div>
+                </div>
+                <h2 class="game-title">五子棋</h2>
+                <p class="game-description">
+                    传统五子连珠游戏，策略与智慧的对决！
+                    提供多种难度等级，从新手到大师任你挑战。
+                </p>
+                <div class="game-features">
+                    <span class="feature-tag">🤖 人机对战</span>
+                    <span class="feature-tag">👥 双人对战</span>
+                    <span class="feature-tag">🎯 四种难度</span>
+                </div>
+                <button class="play-button">开始游戏</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>💡 提示：所有游戏均支持键盘和鼠标操作</p>
+            <p>© 2024 棋类游戏大厅 | 使用 Flask + WebSocket 构建</p>
+        </footer>
+    </div>
+</body>
+</html>

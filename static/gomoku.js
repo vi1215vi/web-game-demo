@@ -132,7 +132,7 @@ class GomokuGame {
     async makeMove(row, col) {
         try {
             console.log('Making move:', row, col);
-            const response = await fetch('/gomoku/api/move', {
+            const response = await fetch('/api/gomoku/move', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ class GomokuGame {
     
     async resetGame() {
         try {
-            const response = await fetch('/gomoku/api/reset', {
+            const response = await fetch('/api/gomoku/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -203,7 +203,7 @@ class GomokuGame {
     
     async fetchStatus() {
         try {
-            const response = await fetch('/gomoku/api/status');
+            const response = await fetch('/api/gomoku/status');
             const data = await response.json();
             this.updateBoard(data);
         } catch (error) {

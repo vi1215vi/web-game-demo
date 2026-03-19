@@ -215,7 +215,7 @@ class TicTacToeGame {
     
     async makeMove(row, col) {
         try {
-            const response = await fetch('/api/move', {
+            const response = await fetch('/api/tictactoe/move', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -240,7 +240,7 @@ class TicTacToeGame {
         }
         
         try {
-            const response = await fetch('/api/reset', {
+            const response = await fetch('/api/tictactoe/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -301,7 +301,7 @@ class TicTacToeGame {
     
     async fetchStatus() {
         try {
-            const response = await fetch('/api/status');
+            const response = await fetch('/api/tictactoe/status');
             const data = await response.json();
             this.updateBoard(data);
         } catch (error) {
