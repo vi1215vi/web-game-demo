@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五子棋游戏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='gomoku.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>五子棋游戏</h1>
+        
+        <div class="controls">
+            <div class="mode-selector">
+                <label>游戏模式：</label>
+                <select id="mode">
+                    <option value="ai">人机对战</option>
+                    <option value="pvp">双人对战</option>
+                </select>
+            </div>
+            <div class="difficulty-selector" id="difficulty-container">
+                <label>难度级别：</label>
+                <select id="difficulty">
+                    <option value="easy">简单</option>
+                    <option value="normal" selected>一般</option>
+                    <option value="hard">困难</option>
+                    <option value="master">大师</option>
+                </select>
+            </div>
+            <button id="reset" class="btn">重新开始</button>
+        </div>
+        
+        <div class="game-info">
+            <div class="player-info">
+                <span class="player-black">黑棋 (玩家1)</span>
+                <span id="current-player" class="current">当前回合</span>
+                <span class="player-white">白棋 (玩家2)</span>
+            </div>
+            <div id="status" class="status"></div>
+        </div>
+        
+        <div class="board-container">
+            <div class="board" id="board"></div>
+        </div>
+        
+        <div class="instructions">
+            <h3>操作说明：</h3>
+            <ul>
+                <li>鼠标点击棋盘交叉点落子</li>
+                <li>键盘方向键选择位置，回车键确认落子</li>
+                <li>R键重新开始游戏</li>
+                <li>M键切换游戏模式</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='gomoku.js') }}"></script>
+</body>
+</html>
